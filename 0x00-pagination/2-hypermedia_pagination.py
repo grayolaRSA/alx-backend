@@ -69,10 +69,15 @@ class Server:
         """
         data = self.get_page(page, page_size)
 
-        if 19418 % page_size == 0:
-            total_pgs = int(19418 / page_size)
+        with open('Popular_Baby_Names.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            num_records = len(list(csv_reader)) - 1
+            # print(num_records)
+
+        if num_records % page_size == 0:
+            total_pgs = int(num_records / page_size)
         else:
-            total_pgs = int((19418 / page_size) + 1)
+            total_pgs = int((num_records / page_size) + 1)
 
         if page >= total_pgs:
             nxt_pg = None
