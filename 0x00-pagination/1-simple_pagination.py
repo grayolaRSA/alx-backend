@@ -58,9 +58,8 @@ class Server:
         page_index = index_range(page, page_size)
         print(page_index)
         start_index = page_index[0]
-        end_index   = page_index[1]
+        end_index = page_index[1]
         print(start_index)
         print(end_index)
         page_items = csv_list[page_index[0]:page_index[1]]
         return page_items
-
