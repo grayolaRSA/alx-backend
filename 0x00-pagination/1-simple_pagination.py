@@ -53,13 +53,13 @@ class Server:
 
             for row in csv_reader:
                 csv_list.append(row)
-                # print(csv_list)
+                # print(csv_list[9:10])
 
         page_index = index_range(page, page_size)
-        print(page_index)
-        start_index = page_index[0]
-        end_index = page_index[1]
-        print(start_index)
-        print(end_index)
-        page_items = csv_list[page_index[0]:page_index[1]]
+        # print(page_index)
+        start_index = page_index[0] + 1
+        end_index = page_index[1] + 1
+        # print(start_index)
+        # print(end_index)
+        page_items = csv_list[start_index:end_index]
         return page_items
