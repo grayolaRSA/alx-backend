@@ -2,11 +2,10 @@
 """cache LIFO module"""
 
 
-# from base_caching import BaseCaching
-BaseCache = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
-class LIFOCache(BaseCache):
+class LIFOCache(BaseCaching):
     """class for LIFO caching system"""
 
     def __init__(self):
@@ -17,8 +16,8 @@ class LIFOCache(BaseCache):
     def put(self, key, item):
         """ Add an item in the cache
         """
-        if key is None or item is None:
-            pass
+        # if key is None or item is None:
+        # pass
 
         if len(self.cache_data) >= self.MAX_ITEMS:
             if key not in self.cache_data:
