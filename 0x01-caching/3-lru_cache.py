@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    """class for LIFO caching system"""
+    """class for LRU caching system"""
 
     def __init__(self):
         """ Initiliaze
@@ -37,6 +37,11 @@ class LRUCache(BaseCaching):
     def get(self, key):
         """ Get an item by key
         """
+        # value = super().get(key)
         if key is None or key not in self.cache_data:
             return None
-        return self.cache_data.get(key, None)
+
+        if key in self.cache_data:
+            self.access_hist.pop(key)
+            self.access_hist[key] = None
+        return self.cache_data[key]
