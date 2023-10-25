@@ -2,10 +2,11 @@
 """cache LIFO module"""
 
 
-from base_caching import BaseCaching
+# from base_caching import BaseCaching
+BaseCache = __import__('base_caching').BaseCaching
 
 
-class LIFOCache(BaseCaching):
+class LIFOCache(BaseCache):
     """class for LIFO caching system"""
 
     def __init__(self):
