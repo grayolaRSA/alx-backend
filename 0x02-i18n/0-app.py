@@ -14,4 +14,4 @@ def home() -> str:
 
 if __name__ == "__main__":
     """initialise app"""
-    app.run()
+    app.run(debug=True)
