@@ -16,23 +16,21 @@ class Config:
     def __init__(self) -> None:
         """initialise configuration of app"""
 
-        self.LANGUAGES = ["en", "fr"]
+        LANGUAGES = ["en", "fr"]
 
-        user_language = request.accept_languages.best_match(app.config
-                                                            ['LANGUAGES'])
-
-        self.BABEL_DEFAULT_LOCALE = user_language
-        self.BABEL_DEFAULT_TIMEZONE = 'UTC'
+        BABEL_DEFAULT_LOCALE = "en"
+        BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app.config.from_object(Config)
 
 
-@app.route('/')
-def home():
-    """simple app home endpoint"""
+@app.route('/', strict_slashes=False)
+def home() -> str:
+    """function for simple app route with an html template"""
     return render_template('templates/1-index.html')
 
 
 if __name__ == '__main__':
+    """initiate app"""
     app.run()
