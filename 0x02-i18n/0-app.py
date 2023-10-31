@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     """simple app home endpoint"""
-    return render_template('templates/index.html')
+    return render_template('templates/0-index.html')
 
 
 if __name__ == '__main__':
