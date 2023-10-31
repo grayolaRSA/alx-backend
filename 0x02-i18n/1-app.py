@@ -13,13 +13,11 @@ babel = Babel(app)
 
 class Config:
     """configuration class"""
-    def __init__(self) -> None:
-        """initialise configuration of app"""
+    
+    LANGUAGES = ["en", "fr"]
 
-        LANGUAGES = ["en", "fr"]
-
-        BABEL_DEFAULT_LOCALE = "en"
-        BABEL_DEFAULT_TIMEZONE = "UTC"
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app.config.from_object(Config)
