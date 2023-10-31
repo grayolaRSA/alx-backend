@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""module for Flask app"""
+"""module to setup a basic Flask app"""
 
 
 from flask import Flask, render_template, request
@@ -12,17 +12,12 @@ babel = Babel(app)
 
 
 class Config:
-    """configuration class"""
-    def __init__(self) -> None:
-        """initialise configuration of app"""
+    """configuration class for Babel setup"""
 
-        self.LANGUAGES = ["en", "fr"]
+    LANGUAGES: list = ["en", "fr"]
 
-        user_language = request.accept_languages.best_match(app.config
-                                                            ['LANGUAGES'])
-
-        self.BABEL_DEFAULT_LOCALE = user_language
-        self.BABEL_DEFAULT_TIMEZONE = 'UTC'
+    BABEL_DEFAULT_LOCALE: str = "en"
+    BABEL_DEFAULT_TIMEZONE: str = "UTC"
 
 
 app.config.from_object(Config)
@@ -30,15 +25,16 @@ app.config.from_object(Config)
 
 @babel.localeselector
 def get_locale():
-    """function to determine language to use"""
-    return request.accept_languages.best_match("en", "fr")
+    """function to get users preferred language"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-@app.route('/')
-def home():
-    """simple app home endpoint"""
+
+@app.route('/', strict_slashes=False)
+def home() -> str:
+    """function for simple app route with an html template"""
     return render_template('templates/2-index.html')
 
 
-if __name__ == '__main__':
-    """initialise app"""
+if __name__ == "__main__":
+    """initiate app"""
     app.run()
