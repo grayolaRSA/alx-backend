@@ -12,12 +12,12 @@ babel = Babel(app)
 
 
 class Config:
-    """configuration class"""
-    
-    LANGUAGES = ["en", "fr"]
+    """configuration class for Babel"""
 
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
+    LANGUAGES: list = ["en", "fr"]
+
+    BABEL_DEFAULT_LOCALE: str = "en"
+    BABEL_DEFAULT_TIMEZONE: str = "UTC"
 
 
 app.config.from_object(Config)
