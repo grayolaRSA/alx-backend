@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def home():
+def home() -> str:
     """simple app home endpoint"""
-    return render_template('templates/0-index.html')
+    return "Hello World"
 
 
 if __name__ == '__main__':
