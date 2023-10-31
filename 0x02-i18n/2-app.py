@@ -40,4 +40,5 @@ def home():
 
 
 if __name__ == '__main__':
+    """initialise app"""
     app.run()
