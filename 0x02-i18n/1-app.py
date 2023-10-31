@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""module for Flask app"""
+"""module to setup a basic Flask app"""
 
 
 from flask import Flask, render_template, request
@@ -12,7 +12,7 @@ babel = Babel(app)
 
 
 class Config:
-    """configuration class for Babel"""
+    """configuration class for Babel setup"""
 
     LANGUAGES: list = ["en", "fr"]
 
@@ -29,6 +29,6 @@ def home() -> str:
     return render_template('templates/1-index.html')
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     """initiate app"""
     app.run()
