@@ -2,17 +2,14 @@
 """module for Flask app"""
 
 
-from flask import Flask, render_template
-from flask_babel import Babel, _
-
-
+from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def home():
     """simple app home endpoint"""
-    return render_template('templates/0-index.html')
+    return 'Hello World'
 
 
 if __name__ == '__main__':
