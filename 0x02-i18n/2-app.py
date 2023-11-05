@@ -31,8 +31,10 @@ def get_locale():
 
 @app.route('/', strict_slashes=False)
 def home() -> str:
-    """function for simple app route with an html template"""
-    return render_template('templates/2-index.html')
+    """
+    Handles / route
+    """
+    return render_template('2-index.html')
 
 
 if __name__ == "__main__":
