@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-module to setup a basic Flask app
+Flask app
 """
 from flask import (
     Flask,
@@ -9,7 +9,7 @@ from flask import (
     g
 )
 from flask_babel import Babel
-from typing import Dict, Union
+
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -21,7 +21,7 @@ users = {
 
 class Config(object):
     """
-    configuration class for Babel setup
+    Configuration for Babel
     """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
@@ -33,10 +33,30 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
+def get_user():
+    """
+    Returns a user dictionary or None if ID value can't be found
+    or if 'login_as' URL parameter was not found
+    """
+    id = request.args.get('login_as', None)
+    if id is not None and int(id) in users.keys():
+        return users.get(int(id))
+    return None
+
+
+@app.before_request
+def before_request():
+    """
+    Add user to flask.g if user is found
+    """
+    user = get_user()
+    g.user = user
+
+
 @babel.localeselector
 def get_locale():
     """
-    function to get users preferred language
+    Select and return best language match based on supported languages
     """
     loc = request.args.get('locale')
     if loc in app.config['LANGUAGES']:
@@ -47,28 +67,9 @@ def get_locale():
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """
-    function for simple app route with an html template
+    Handles / route
     """
     return render_template('5-index.html')
-
-def get_user():
-    """
-    function to get user that is logged in
-    """
-    user_id = request.args.get('login_as', None)
-    if user_id is not None and int(user_id) in users.keys():
-        return users.get(int(user_id))
-    else:
-        return None
-
-@app.before_request
-def before_request():
-    """
-    find a user and set it as the global user on Flask
-    """
-    user = get_user()
-    g.user = user
-
 
 
 if __name__ == "__main__":
