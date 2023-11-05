@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""module to setup a basic Flask app"""
+"""
+module to setup a basic Flask app
+"""
 
 
 from flask import Flask, render_template, request
@@ -12,7 +14,9 @@ babel = Babel(app)
 
 
 class Config:
-    """configuration class for Babel setup"""
+    """
+    configuration class for Babel setup
+    """
 
     LANGUAGES: list = ["en", "fr"]
 
