@@ -25,7 +25,8 @@ app.config.from_object(Config)
 
 @app.route('/', strict_slashes=False)
 def home() -> str:
-    """function for simple app route with an html template"""
+    """function for simple app route with an html template
+    """
     return render_template('1-index.html')
 
 
