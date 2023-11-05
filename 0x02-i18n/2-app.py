@@ -45,4 +45,4 @@ def home() -> str:
 
 if __name__ == "__main__":
     """initiate app"""
-    app.run()
+    app.run(port="5000", host="0.0.0.0", debug=True)
