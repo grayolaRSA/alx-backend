@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Flask app
+module to setup a basic Flask app
 """
 from flask import (
     Flask,
@@ -12,7 +12,7 @@ from flask_babel import Babel
 
 class Config(object):
     """
-    Configuration for Babel
+    configuration class for Babel setup
     """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
@@ -27,7 +27,7 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale():
     """
-    Select and return best language match based on supported languages
+    function to get users preferred language
     """
     loc = request.args.get('locale')
     if loc in app.config['LANGUAGES']:
@@ -38,7 +38,7 @@ def get_locale():
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """
-    Handles / route
+    function for simple app route with an html template
     """
     return render_template('4-index.html')
 
