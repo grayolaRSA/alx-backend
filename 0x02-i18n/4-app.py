@@ -7,7 +7,7 @@ from flask import (
     render_template,
     request
 )
-from flask_babel import Babel, _, gettext
+from flask_babel import Babel
 
 
 class Config(object):
@@ -38,7 +38,7 @@ def get_locale():
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """
-    function for simple app route with an html template
+    Handles / route
     """
     return render_template('4-index.html')
 
