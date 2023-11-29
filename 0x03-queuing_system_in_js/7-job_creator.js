@@ -51,12 +51,13 @@ const queue = kue.createQueue();
 let totalJobs = 0;
 let completedJobs = 0;
 
-function updatePercentage() {
+function updatePercentage(totalJobs, completedJobs) {
     // Track the total number of jobs and the number of completed jobs
     const percentage = totalJobs > 0 ? ((completedJobs / totalJobs) * 100).toFixed(2) : 0;
+    return percentage;
 }
 
-function jobCreate(jobs) {
+export function jobCreate(jobs) {
 
   
     for (const job of jobs) {
@@ -64,7 +65,8 @@ function jobCreate(jobs) {
       notificationJob.on('enqueue', () => {
       console.log(`Notification job created: ${notificationJob.id}`);
       totalJobs++;
-      updatePercentage();
+      console.log(`total jobs: ${totalJobs}`)
+      // updatePercentage();
       });
   
   // push_notification_code.process(JOB_ID, (err, push_notification_code) => {
@@ -77,9 +79,10 @@ function jobCreate(jobs) {
   
       notificationJob.on('complete', () => {
           console.log(`Notification job ${notificationJob.id} completed`);
-          totalJobs++;
-          updatePercentage();
-          console.log(`Notification job ${notificationJob.id} ${updatePercentage.percentage}% complete`);
+          completedJobs++;
+          console.log(`jobs completed: ${completedJobs}`);
+          const percentage = updatePercentage(totalJobs, completedJobs);
+          console.log(`Notification job ${notificationJob.id} ${percentage}% complete`);
       });
   
       notificationJob.on('failed', (error) => {
@@ -88,6 +91,22 @@ function jobCreate(jobs) {
 
       notificationJob.save();
     }
+
+    // Exit gracefully when the job is completed or failed
+    queue.process('push_notification_code_2', (job, done) => {
+    // Simulate a successful job completion
+    // In a real scenario, you would perform the actual work here
+    console.log(`Processing job ${job.id}`);
+    done();
+    });
+  
+    // Gracefully shut down the queue when the process is terminated
+    process.on('SIGTERM', () => {
+        queue.shutdown(5000, (err) => {
+        console.log('Kue shutdown: ', err || '');
+        process.exit(0);
+        });
+    });
 }
 
 jobCreate(jobs);
