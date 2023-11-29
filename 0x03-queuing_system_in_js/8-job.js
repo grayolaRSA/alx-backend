@@ -8,10 +8,10 @@ const createPushNotificationsJobs = (jobs, queue) => {
         throw new Error('Jobs is not an array');
     }
 
-    queue = queues;
-    const notificationCode = queue.create('push_notification_code_3', { phoneNumber: '', message: '' });
-
     for (const job of jobs) {    
+
+        queue = queues;
+        const notificationCode = queue.create('push_notification_code_3', { phoneNumber: job.phoneNumber, message: job.message });
 
         notificationCode.on('enqueue', () => {
             console.log(`Notification job created: ${notificationCode.id}`);
