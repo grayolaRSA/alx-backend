@@ -51,15 +51,16 @@ const queue = kue.createQueue();
 // let totalJobs = 0;
 // let completedJobs = 0;
 
-function updatePercentage(totalJobs, completedJobs) {
-    // Track the total number of jobs and the number of completed jobs
-    const percentage = totalJobs > 0 ? ((completedJobs / totalJobs) * 100).toFixed(2) : 0;
-    return percentage;
-}
+// function updatePercentage(totalJobs, completedJobs) {
+//     // Track the total number of jobs and the number of completed jobs
+//     const percentage = totalJobs > 0 ? ((completedJobs / totalJobs) * 100).toFixed(2) : 0;
+//     return percentage;
+// }
+
 for (const job of jobs) {
-      const notificationJob = queue.create('push_notification_code_2', {phoneNumber: job.phoneNumber, message: job.message});
-      
-      
+
+  const notificationJob = queue.create('push_notification_code_2', {phoneNumber: job.phoneNumber, message: job.message});
+
       notificationJob.on('enqueue', () => {
       console.log(`Notification job created: ${notificationJob.id}`);
       // totalJobs++;
@@ -72,15 +73,15 @@ for (const job of jobs) {
           // completedJobs++;
           // console.log(`jobs completed: ${completedJobs}`);
           // const percentage = updatePercentage(totalJobs, completedJobs);
-          console.log(`Notification job ${notificationJob.id} ${percentage}% complete`);
+          // console.log(`Notification job ${notificationJob.id} completed`);
       });
   
       notificationJob.on('failed', (error) => {
           console.error(`Notification job ${notificationJob.id}  failed: ${error}`);
       });
 
-      notificationJob.on('progress', () => {
-        console.log(`Notification job ${job.progress}% complete`);
+      notificationJob.on('progress', (progress) => {
+        console.log(`Notification job ${notificationJob.id} ${progress}% complete`);
       });
 
       notificationJob.save();

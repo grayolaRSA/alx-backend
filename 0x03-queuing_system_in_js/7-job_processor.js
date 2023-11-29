@@ -16,6 +16,10 @@ const sendNotification = (phoneNumber, message, job, done) => {
   } else {
     job.progress(50, 100);
     console.log(`Sending notification to ${phoneNumber}, with message: ${message}`);
+    setTimeout(() => {
+      job.progress(100, 100);
+      done();
+    }, 1000);
   }
 }
 
